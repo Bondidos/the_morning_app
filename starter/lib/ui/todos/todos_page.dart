@@ -63,7 +63,7 @@ class _TodosPageState extends State<TodosPage> {
 
   void reorderTodos(int oldIndex, int newIndex){
     if(oldIndex < newIndex){
-      newIndex -=1;
+      newIndex -= 1;
     }
 
     final item = todos.removeAt(oldIndex);

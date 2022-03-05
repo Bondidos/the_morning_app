@@ -50,15 +50,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentTab = 0;
-  //TODO: Preserve Scroll Position on tab change
+  final PageStorageBucket _bucket = PageStorageBucket();
 
   final pages = <Widget>[
     TodosPage(
+      key: const PageStorageKey('todos'),
       todosRepository: TodosRepository(
         localDataSource: TodosLocalDataSource(),
       ),
     ),
     NewsPage(
+      key: const PageStorageKey('news'),
       newsRepository: NewsRepository(
         remoteDataSource: NewsRemoteDataSource(),
       ),
@@ -71,7 +73,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: buildAppBar(textTheme),
-      body: pages[currentTab],
+      body: PageStorage(
+        bucket: _bucket,
+        child: pages[currentTab],
+      ),
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
